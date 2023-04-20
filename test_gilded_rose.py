@@ -17,6 +17,10 @@ class GildedRoseTest(unittest.TestCase):
         items = [Item("Aged Brie", 1, 20)]
         gilded_rose = GildedRose(items)
         gilded_rose.next_day()
+        self.assertEqual("Aged Brie", items[0].name)
+        self.assertEqual(0, items[0].sell_in)
+        self.assertEqual(21, items[0].quality)
+
         gilded_rose.next_day()
         self.assertEqual("Aged Brie", items[0].name)
         self.assertEqual(-1, items[0].sell_in)
@@ -47,7 +51,12 @@ class GildedRoseTest(unittest.TestCase):
     def test_boring_carrot_after_exp(self):
         items = [Item("Boring Carrot", 1, 20)]
         gilded_rose = GildedRose(items)
+
         gilded_rose.next_day()
+        self.assertEqual("Boring Carrot", items[0].name)
+        self.assertEqual(0, items[0].sell_in)
+        self.assertEqual(19, items[0].quality)
+
         gilded_rose.next_day()
         self.assertEqual("Boring Carrot", items[0].name)
         self.assertEqual(-1, items[0].sell_in)
