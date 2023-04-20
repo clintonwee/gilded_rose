@@ -89,9 +89,15 @@ class GildedRoseTest(unittest.TestCase):
     def test_backstage_passes_after_exp(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 1, 20)]
         gilded_rose = GildedRose(items)
+
         gilded_rose.next_day()
         self.assertEqual("Backstage passes to a TAFKAL80ETC concert", items[0].name)
         self.assertEqual(0, items[0].sell_in)
+        self.assertEqual(23, items[0].quality)
+
+        gilded_rose.next_day()
+        self.assertEqual("Backstage passes to a TAFKAL80ETC concert", items[0].name)
+        self.assertEqual(-1, items[0].sell_in)
         self.assertEqual(0, items[0].quality)
 
     def test_backstage_passes_less_than_50(self):

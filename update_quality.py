@@ -13,7 +13,7 @@ def update_quality_cheese(item):
 
 
 def update_quality_tickets(item):
-    if item.sell_in <= 1:
+    if item.sell_in < 0:
         item.quality = 0
     elif item.sell_in <= 5:
         item.quality += 3
