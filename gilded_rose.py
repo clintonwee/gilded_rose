@@ -9,13 +9,20 @@ class GildedRose(object):
         self.tickets = ['Backstage passes to a TAFKAL80ETC concert']
         self.conjured = ['Conjured']
         self.maxQuality = 50
+        self.minQuality = 0
 
+    def checkMaxQuality(self, item):
+        if item.quality > self.maxQuality:
+            item.quality = self.maxQuality
+
+    def checkMinQuality(self, item):
+        if item.quality < self.minQuality:
+            item.quality = self.minQuality
 
     def update_sell_in(self):
         for item in self.items:
             if item.name not in self.legendary:
                 item.sell_in -= 1
-
 
     def update_quality(self):
         for item in self.items:
@@ -46,8 +53,8 @@ class GildedRose(object):
                 else:
                     item.quality -= 2
 
-
-
+            self.checkMinQuality(item)
+            self.checkMaxQuality(item)
 
         self.update_sell_in()
             # if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":

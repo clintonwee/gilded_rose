@@ -57,9 +57,10 @@ class GildedRoseTest(unittest.TestCase):
         items = [Item("Boring Carrot", 0, 1)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
+        gilded_rose.update_quality()
         self.assertEqual("Boring Carrot", items[0].name)
-        self.assertEqual(-1, items[0].sell_in)
-        self.assertGreaterEqual(0, items[0].quality)
+        self.assertEqual(-2, items[0].sell_in)
+        self.assertLessEqual(0, items[0].quality)
 
     def test_backstage_passes_before_exp(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 12, 20)]
