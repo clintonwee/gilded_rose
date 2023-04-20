@@ -25,6 +25,13 @@ def update_quality_tickets(item):
         item.quality += 1
 
 
+def update_quality_conjured(item):
+    if item.sell_in >= 0:
+        item.quality -= 2
+    else:
+        item.quality -= 4
+
+
 class GildedRose(object):
 
     def __init__(self, items):
@@ -57,6 +64,9 @@ class GildedRose(object):
 
             elif item.name in self.categories['tickets']:
                 update_quality_tickets(item)
+
+            elif item.name in self.categories['conjured']:
+                update_quality_conjured(item)
 
             elif item.name in self.categories['legendary']:
                 continue
