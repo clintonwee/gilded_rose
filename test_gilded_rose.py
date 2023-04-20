@@ -112,7 +112,29 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(5, items[0].sell_in)
         self.assertEqual(20, items[0].quality)
 
+    def test_conjured_before_exp(self):
+        items = [Item("Conjured", 5, 20)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.next_day()
+        self.assertEqual("Conjured", items[0].name)
+        self.assertEqual(4, items[0].sell_in)
+        self.assertEqual(18, items[0].quality)
 
+    def test_conjured_after_exp(self):
+        items = [Item("Conjured", 0, 20)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.next_day()
+        self.assertEqual("Conjured", items[0].name)
+        self.assertEqual(-1, items[0].sell_in)
+        self.assertEqual(16, items[0].quality)
+
+    def test_conjured_not_negative(self):
+        items = [Item("Conjured", 0, 20)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.next_day()
+        self.assertEqual("Conjured", items[0].name)
+        self.assertEqual(-1, items[0].sell_in)
+        self.assertEqual(16, items[0].quality)
 
 if __name__ == '__main__':
     unittest.main()
