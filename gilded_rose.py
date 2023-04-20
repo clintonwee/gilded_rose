@@ -22,12 +22,19 @@ class GildedRose(object):
             if item.name in self.cheeses:
                 if item.quality < self.maxQuality:
                     if item.sell_in <= 0:
-                        item.quality + 2
+                        item.quality += 2
                     else:
-                        item.quality + 1
+                        item.quality += 1
 
             elif item.name in self.tickets:
-                if item.quality < 50:
+                if item.quality < self.maxQuality:
+                    if item.sell_in <= 10:
+                        item.quality += 2
+                    elif item.sell_in <= 5:
+                        item.quality += 3
+                    else:
+                        item.quality += 1
+
 
         self.update_sell_in()
             # if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
