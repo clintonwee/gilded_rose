@@ -28,12 +28,25 @@ class GildedRose(object):
 
             elif item.name in self.tickets:
                 if item.quality < self.maxQuality:
-                    if item.sell_in <= 10:
-                        item.quality += 2
+                    if item.sell_in <= 1:
+                        item.quality = 0
                     elif item.sell_in <= 5:
                         item.quality += 3
+                    elif item.sell_in <= 10:
+                        item.quality += 2
                     else:
                         item.quality += 1
+
+            elif item.name in self.legendary:
+                continue
+
+            else:
+                if item.sell_in > 0:
+                    item.quality -= 1
+                else:
+                    item.quality -= 2
+
+
 
 
         self.update_sell_in()
