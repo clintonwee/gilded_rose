@@ -136,12 +136,18 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(18, items[0].quality)
 
     def test_conjured_after_exp(self):
-        items = [Item("Conjured", 0, 20)]
+        items = [Item("Conjured", 1, 20)]
         gilded_rose = GildedRose(items)
+
+        gilded_rose.next_day()
+        self.assertEqual("Conjured", items[0].name)
+        self.assertEqual(0, items[0].sell_in)
+        self.assertEqual(18, items[0].quality)
+
         gilded_rose.next_day()
         self.assertEqual("Conjured", items[0].name)
         self.assertEqual(-1, items[0].sell_in)
-        self.assertEqual(16, items[0].quality)
+        self.assertEqual(14, items[0].quality)
 
     def test_conjured_not_negative(self):
         items = [Item("Conjured", 0, 20)]
