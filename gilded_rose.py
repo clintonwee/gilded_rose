@@ -11,11 +11,10 @@ class GildedRose(object):
         self.maxQuality = 50
         self.minQuality = 0
 
-    def checkMaxQuality(self, item):
+    def enforce_max_min_quality(self, item):
         if item.quality > self.maxQuality:
             item.quality = self.maxQuality
 
-    def checkMinQuality(self, item):
         if item.quality < self.minQuality:
             item.quality = self.minQuality
 
@@ -27,22 +26,20 @@ class GildedRose(object):
     def update_quality(self):
         for item in self.items:
             if item.name in self.cheeses:
-                if item.quality < self.maxQuality:
-                    if item.sell_in <= 0:
-                        item.quality += 2
-                    else:
-                        item.quality += 1
+                if item.sell_in <= 0:
+                    item.quality += 2
+                else:
+                    item.quality += 1
 
             elif item.name in self.tickets:
-                if item.quality < self.maxQuality:
-                    if item.sell_in <= 1:
-                        item.quality = 0
-                    elif item.sell_in <= 5:
-                        item.quality += 3
-                    elif item.sell_in <= 10:
-                        item.quality += 2
-                    else:
-                        item.quality += 1
+                if item.sell_in <= 1:
+                    item.quality = 0
+                elif item.sell_in <= 5:
+                    item.quality += 3
+                elif item.sell_in <= 10:
+                    item.quality += 2
+                else:
+                    item.quality += 1
 
             elif item.name in self.legendary:
                 continue
@@ -53,35 +50,11 @@ class GildedRose(object):
                 else:
                     item.quality -= 2
 
-            self.checkMinQuality(item)
-            self.checkMaxQuality(item)
+            self.enforce_max_min_quality(item)
 
+    def next_day(self):
+        self.update_quality()
         self.update_sell_in()
-            # if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
-            #     if item.quality > 0:
-            #         if item.name != "Sulfuras, Hand of Ragnaros":
-            #             item.quality = item.quality - 1
-            # else:
-            #     if item.quality < 50:
-            #         item.quality = item.quality + 1
-            #         if item.name == "Backstage passes to a TAFKAL80ETC concert":
-            #             if item.sell_in < 11:
-            #                 if item.quality < 50:
-            #                     item.quality = item.quality + 1
-            #             if item.sell_in < 6:
-            #                 if item.quality < 50:
-            #                     item.quality = item.quality + 1
-            # if item.sell_in < 0:
-            #     if item.name != "Aged Brie":
-            #         if item.name != "Backstage passes to a TAFKAL80ETC concert":
-            #             if item.quality > 0:
-            #                 if item.name != "Sulfuras, Hand of Ragnaros":
-            #                     item.quality = item.quality - 1
-            #         else:
-            #             item.quality = item.quality - item.quality
-            #     else:
-            #         if item.quality < 50:
-            #             item.quality = item.quality + 1
 
 
 class Item:
