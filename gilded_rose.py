@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from update_quality import *
 
 
@@ -13,15 +12,15 @@ class GildedRose(object):
             'tickets': ['Backstage passes to a TAFKAL80ETC concert'],
             'conjured': ['Conjured']
         }
-        self.maxQuality = 50
-        self.minQuality = 0
+        self.max_quality = 50
+        self.min_quality = 0
 
-    def enforce_max_min_quality(self, item):
-        if item.quality > self.maxQuality:
-            item.quality = self.maxQuality
+    def enforce_min_max_quality(self, item):
+        if item.quality < self.min_quality:
+            item.quality = self.min_quality
 
-        if item.quality < self.minQuality:
-            item.quality = self.minQuality
+        if item.quality > self.max_quality:
+            item.quality = self.max_quality
 
     def update_sell_in(self):
         for item in self.items:
@@ -45,7 +44,7 @@ class GildedRose(object):
             else:
                 update_quality_normal(item)
 
-            self.enforce_max_min_quality(item)
+            self.enforce_min_max_quality(item)
 
     def next_day(self):
         self.update_sell_in()
