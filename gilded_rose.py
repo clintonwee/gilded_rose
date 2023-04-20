@@ -29,10 +29,12 @@ class GildedRose(object):
 
     def __init__(self, items):
         self.items = items
-        self.legendary = ['Sulfuras, Hand of Ragnaros']
-        self.cheeses = ['Aged Brie']
-        self.tickets = ['Backstage passes to a TAFKAL80ETC concert']
-        self.conjured = ['Conjured']
+        self.categories = {
+            'legendary': ['Sulfuras, Hand of Ragnaros'],
+            'cheeses': ['Aged Brie'],
+            'tickets': ['Backstage passes to a TAFKAL80ETC concert'],
+            'conjured': ['Conjured']
+        }
         self.maxQuality = 50
         self.minQuality = 0
 
@@ -45,18 +47,18 @@ class GildedRose(object):
 
     def update_sell_in(self):
         for item in self.items:
-            if item.name not in self.legendary:
+            if item.name not in self.categories['legendary']:
                 item.sell_in -= 1
 
     def update_quality(self):
         for item in self.items:
-            if item.name in self.cheeses:
+            if item.name in self.categories['cheeses']:
                 update_quality_cheese(item)
 
-            elif item.name in self.tickets:
+            elif item.name in self.categories['tickets']:
                 update_quality_tickets(item)
 
-            elif item.name in self.legendary:
+            elif item.name in self.categories['legendary']:
                 continue
 
             else:
@@ -67,7 +69,6 @@ class GildedRose(object):
     def next_day(self):
         self.update_sell_in()
         self.update_quality()
-
 
 
 class Item:
